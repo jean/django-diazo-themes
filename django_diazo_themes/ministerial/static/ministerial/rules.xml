@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules
+    xmlns="http://namespaces.plone.org/diazo"
+    xmlns:css="http://namespaces.plone.org/diazo/css"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+    <!-- Nifty output settings -->
+    <xsl:strip-space elements="*"/>
+    <xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
+
+    <!-- Identify Django error page -->
+    <xsl:variable name="django_error" select="//body/div[@id='summary'] and //body/div[@id='traceback'] and
+    //body/div[@id='requestinfo'] and //body/div[@id='explanation']" />
+
+    <!-- Skip Diazo -->
+    <notheme if-path="admin" /><!-- Django Admin -->
+    <notheme if="$django_error" /><!-- Django Error -->
+
+    <!-- Theme to use -->
+    <theme href="index.html" />
+
+    <!-- Title of the page -->
+    <replace css:theme-children="title"
+             css:content-children="context > title" />
+
+    <!-- Brandname + link to home -->
+    <replace css:theme="#logo h1 a">
+        <xsl:element name="a">
+            <xsl:attribute name="href">
+                <xsl:value-of select="//context/brand/url" />
+            </xsl:attribute>
+            <xsl:value-of select="//context/brand/name" />
+        </xsl:element>
+    </replace>
+    <replace css:theme-children="#logo p"
+             css:content-children="context subtitle" />
+
+    <!-- Menu -->
+    <replace css:theme-children="#menu ul">
+        <xsl:for-each css:select="context menu item">
+            <xsl:element name="li">
+                <xsl:if test="./@class='active'">
+                    <xsl:attribute name="class">current_page_item</xsl:attribute>
+                </xsl:if>
+                <xsl:element name="a">
+                    <xsl:attribute name="href">#</xsl:attribute>
+                    <xsl:value-of select="./name" />
+                </xsl:element>
+            </xsl:element>
+        </xsl:for-each>
+    </replace>
+
+    <!-- Large image -->
+    <replace css:theme="#banner img">
+        <xsl:element name="img">
+            <xsl:attribute name="src">
+                <xsl:value-of select="//context/banner" />
+            </xsl:attribute>
+        </xsl:element>
+    </replace>
+
+    <!-- Main content -->
+    <replace css:theme-children="#wide-content">
+        <h2><xsl:value-of css:select="context > title" /></h2>
+        <xsl:copy-of select="//context/content/*" />
+    </replace>
+
+    <!-- News -->
+    <replace css:theme-children="#recent-news">
+        <h2><xsl:value-of css:select="context news title" /></h2>
+        <xsl:for-each css:select="context news newsitems item">
+            <xsl:if test="not(position() > 4)">
+                <xsl:element name="div">
+                    <xsl:attribute name="id">rbox<xsl:value-of select="position()" /></xsl:attribute>
+                    <p class="date"><xsl:value-of select="./date" /></p>
+                    <p><xsl:value-of select="./text" /></p>
+                    <p class="button-style1">
+                        <xsl:element name="a">
+                            <xsl:attribute name="href"><xsl:value-of select="./button/url" /></xsl:attribute>
+                            <xsl:value-of select="./button/name" />
+                        </xsl:element>
+                    </p>
+                </xsl:element>
+            </xsl:if>
+        </xsl:for-each>
+    </replace>
+
+    <!-- LHS portlet -->
+    <replace css:theme-children="#fbox1">
+        <h2><xsl:value-of css:select="context lhs_portlet title" /></h2>
+        <ul class="style2">
+            <xsl:for-each css:select="context lhs_portlet content item">
+                <xsl:if test="not(position() > 6)">
+                    <xsl:element name="li">
+                        <xsl:if test="position() = 1">
+                            <xsl:attribute name="class">first</xsl:attribute>
+                        </xsl:if>
+                        <xsl:element name="a">
+                            <xsl:attribute name="href"><xsl:value-of select="./url" /></xsl:attribute>
+                            <xsl:value-of select="./name" />
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:if>
+            </xsl:for-each>
+        </ul>
+        <xsl:if css:test="context lhs_portlet more">
+            <p class="button-style">
+                <xsl:element name="a">
+                    <xsl:attribute name="href"><xsl:value-of css:select="context lhs_portlet more url" /></xsl:attribute>
+                    <xsl:value-of css:select="context lhs_portlet more name" />
+                </xsl:element>
+            </p>
+        </xsl:if>
+    </replace>
+
+    <!-- Center portlet -->
+    <replace css:theme-children="#fbox2">
+        <h2><xsl:value-of css:select="context center_portlet title" /></h2>
+        <xsl:copy-of css:select="context center_portlet content" />
+        <xsl:if css:test="context center_portlet more">
+            <p class="button-style">
+                <xsl:element name="a">
+                    <xsl:attribute name="href"><xsl:value-of css:select="context center_portlet more url" /></xsl:attribute>
+                    <xsl:value-of css:select="context center_portlet more name" />
+                </xsl:element>
+            </p>
+        </xsl:if>
+    </replace>
+
+    <!-- RHS portlet -->
+    <replace css:theme-children="#fbox3">
+        <h2><xsl:value-of css:select="context rhs_portlet title" /></h2>
+        <ul class="style3">
+            <xsl:for-each css:select="context rhs_portlet content item">
+                <xsl:if test="not(position() > 3)">
+                    <xsl:element name="li">
+                        <xsl:if test="position() = 1">
+                            <xsl:attribute name="class">first</xsl:attribute>
+                        </xsl:if>
+                        <xsl:element name="img">
+                            <xsl:attribute name="src">
+                                <xsl:value-of select="./image" />
+                            </xsl:attribute>
+                        </xsl:element>
+                        <p><xsl:value-of select="./text" /></p>
+                        <p class="posted">
+                            <xsl:value-of select="./posted/date" />
+                            <xsl:if test="./posted/extra">
+                                | <xsl:value-of select="./posted/extra" />
+                            </xsl:if>
+                        </p>
+                    </xsl:element>
+                </xsl:if>
+            </xsl:for-each>
+        </ul>
+        <xsl:if css:test="context rhs_portlet more">
+            <p class="button-style">
+                <xsl:element name="a">
+                    <xsl:attribute name="href"><xsl:value-of css:select="context rhs_portlet more url" /></xsl:attribute>
+                    <xsl:value-of css:select="context rhs_portlet more name" />
+                </xsl:element>
+            </p>
+        </xsl:if>
+    </replace>
+
+    <!-- Footer -->
+    <replace css:theme-children="#footer"
+             css:content-children="footer" />
+
+</rules>
