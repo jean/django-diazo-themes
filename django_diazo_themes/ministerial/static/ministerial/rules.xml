@@ -43,7 +43,9 @@
                     <xsl:attribute name="class">current_page_item</xsl:attribute>
                 </xsl:if>
                 <xsl:element name="a">
-                    <xsl:attribute name="href">#</xsl:attribute>
+                    <xsl:attribute name="href">
+                        <xsl:value-of select="./url" />
+                    </xsl:attribute>
                     <xsl:value-of select="./name" />
                 </xsl:element>
             </xsl:element>
@@ -51,13 +53,15 @@
     </replace>
 
     <!-- Large image -->
-    <replace css:theme="#banner img">
+    <xsl:variable name="banner" select="//context/banner" />
+    <replace css:theme="#banner img" if="$banner">
         <xsl:element name="img">
             <xsl:attribute name="src">
                 <xsl:value-of select="//context/banner" />
             </xsl:attribute>
         </xsl:element>
     </replace>
+    <drop css:theme="#banner" if="not($banner)" />
 
     <!-- Main content -->
     <replace css:theme-children="#wide-content">
@@ -66,7 +70,8 @@
     </replace>
 
     <!-- News -->
-    <replace css:theme-children="#recent-news">
+    <xsl:variable name="news" select="//context/news" />
+    <replace css:theme-children="#recent-news" if="$news">
         <h2><xsl:value-of css:select="context news title" /></h2>
         <xsl:for-each css:select="context news newsitems item">
             <xsl:if test="not(position() > 4)">
@@ -84,6 +89,7 @@
             </xsl:if>
         </xsl:for-each>
     </replace>
+    <drop css:theme="#recent-news" if="not($news)" />
 
     <!-- LHS portlet -->
     <replace css:theme-children="#fbox1">

@@ -13,11 +13,11 @@ class ExampleView(DiazoGenericXmlHtmlResponse):
             'title': 'Pagetitle',
             'subtitle': 'Subtitle',
             'menu': [
-                {'name': 'Home'},
-                {'name': 'Contact', 'class': 'active'},
-                {'name': 'Test'},
-                {'name': 'Bla'},
-                {'name': 'More'},
+                {'name': 'Home', 'url': '/'},
+                {'name': 'Contact', 'url': '/', 'class': 'active'},
+                {'name': 'Test', 'url': '/'},
+                {'name': 'Bla', 'url': '/'},
+                {'name': 'More', 'url': '/'},
             ],
             'banner': '//lorempixel.com/1120/500/nightlife',
             'content': mark_safe('<p>Blablablablabla</p><p>Blablablablabla</p>'
