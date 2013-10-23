@@ -7,6 +7,7 @@ Example built-in themes for django-diazo.
 Currently we have these themes included:
 
     - Ministerial (http://www.freecsstemplates.org/preview/ministerial/)
+    - Angled Theme (http://www.freecsstemplates.org/preview/angledtheme/)
 
 ## Installation
 
@@ -15,6 +16,7 @@ Currently we have these themes included:
     INSTALLED_APPS = (
         ...
         'django_diazo_themes.ministerial',
+        'django_diazo_themes.angled_theme',
         ...
     )
 
