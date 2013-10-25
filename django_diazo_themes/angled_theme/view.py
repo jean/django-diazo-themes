@@ -2,6 +2,8 @@
 This file shows an example view.
 It is not part of the theme itself but acts more as documentation.
 """
+from django.conf import settings
+from django.http import Http404, HttpResponsePermanentRedirect
 from django_diazo.utils.dict2xml import mark_safe
 from django_diazo.views.generic import DiazoGenericXmlHtmlResponse
 
@@ -14,10 +16,10 @@ class ExampleView(DiazoGenericXmlHtmlResponse):
             'subtitle': 'Subtitle',
             'menu': [
                 {'name': 'Home', 'url': '/'},
-                {'name': 'Contact', 'url': '/', 'class': 'active'},
-                {'name': 'Test', 'url': '/'},
-                {'name': 'Bla', 'url': '/'},
-                {'name': 'More', 'url': '/'},
+                {'name': 'Contact', 'url': '/contact'},
+                {'name': 'Test', 'url': '/test'},
+                {'name': 'Bla', 'url': '/bla'},
+                {'name': 'More', 'url': '/more'},
             ],
             'banner': '//lorempixel.com/1120/500/nightlife',
             'content': mark_safe('<p>Blablablablabla</p><p>Blablablablabla</p>'
@@ -54,4 +56,23 @@ class ExampleView(DiazoGenericXmlHtmlResponse):
                             ]},
             'footer': mark_safe('<p>This is the footer</p>'),
         }
+
+        def menu_item(page):
+            if not page:
+                return context['menu'][0]
+            else:
+                for item in context['menu']:
+                    if page == '/' or item['url'] == page[0:-1]:
+                        return item
+            return None
+
+        item = menu_item(self.request.path)
+        if item:
+            item['class'] = 'active'
+
         return dict(super(ExampleView, self).get_context_data(**kwargs).items() + context.items())
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.path.endswith('/') and settings.APPEND_SLASH:
+            return HttpResponsePermanentRedirect('{0}/'.format(request.path))
+        return super(ExampleView, self).dispatch(request, *args, **kwargs)
