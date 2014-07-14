@@ -4,9 +4,9 @@ Register the theme.
 from django_diazo.theme import DiazoTheme, registry
 
 
-class MinisterialTheme(DiazoTheme):
-    name = 'Ministerial'
-    slug = 'ministerial'
+class IwlearnTheme(DiazoTheme):
+    name = 'IW:LEARN'
+    slug = 'iwlearn'
 
 
-registry.register(MinisterialTheme)
+registry.register(IwlearnTheme)
