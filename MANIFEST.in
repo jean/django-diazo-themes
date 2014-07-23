@@ -1,1 +1,1 @@
-recursive-include django_diazo_themes/ministerial/static *
+recursive-include django_diazo_themes *
