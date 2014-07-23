@@ -19,11 +19,11 @@
     <merge attributes="class" css:theme="body" css:content="body" />
     
     <replace css:content-children=".navbar" css:theme-children="#nav" />
-    <merge attributes="*" css:theme="#nav" css:content=".navbar" />
+    <copy attributes="*" css:theme="#nav" css:content=".navbar" />
     <replace css:content-children=".content-wrap" css:theme-children="#content" />
-    <merge attributes="*" css:theme="#content" css:content=".content-wrap" />
+    <copy attributes="*" css:theme="#content" css:content=".content-wrap" />
     <replace css:content-children=".footer" css:theme-children="#foot" />
-    <merge attributes="*" css:theme="#foot" css:content=".footer" />
+    <copy attributes="*" css:theme="#foot" css:content=".footer" />
 		<after css:theme-children="html body" content="/html/body/script" />
 		<after css:theme-children="html body" content="/html/body/style" />
 </rules>
