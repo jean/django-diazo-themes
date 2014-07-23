@@ -1,0 +1,27 @@
+.navbar .navbar-inner,footer.footer {
+	background-color: #1D3061;
+}
+.nav-logo {
+	background-image: url("../images/logo.gif");
+	height: 50px;
+	width: 469px;
+}
+footer.footer {
+	height: 54px;	
+	padding-top:0;
+}
+footer.footer form {
+	margin:10px 0;
+}
+.hero-unit {
+	font-size:14px;
+	line-height:normal;
+	margin-bottom:0;
+	padding-bottom:0;
+}
+.hero-unit h1 {
+	font-size:38px;
+}
+body {
+	padding-top: 67px;	
+}
