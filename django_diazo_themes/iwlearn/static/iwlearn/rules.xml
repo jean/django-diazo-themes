@@ -22,8 +22,11 @@
     <copy attributes="*" css:theme="#nav" css:content=".navbar" />
     <replace css:content-children=".content-wrap" css:theme-children="#content" />
     <copy attributes="*" css:theme="#content" css:content=".content-wrap" />
-    <replace css:content-children=".footer" css:theme-children="#foot" />
-    <copy attributes="*" css:theme="#foot" css:content=".footer" />
+    <after css:content-children=".footer .pull-left" css:theme-children="#foot .pull-left" />
+    <replace css:content=".footer .pull-right" css:theme="#foot .pull-right" />
 		<after css:theme-children="html body" content="/html/body/script" />
 		<after css:theme-children="html body" content="/html/body/style" />
+		
+		<!-- replace homepage intro text -->
+		<replace css:content-children=".intro" css:theme-children="#introduction" href="intro.html" if-content=".intro" />
 </rules>
