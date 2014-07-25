@@ -28,5 +28,27 @@
 		<after css:theme-children="html body" content="/html/body/style" />
 		
 		<!-- replace homepage intro text -->
-		<replace css:content-children=".intro" css:theme-children="#introduction" href="intro.html" if-content=".intro" />
+		<replace css:content-children=".intro" css:if-content=".intro" >
+		 <p>
+	    The IW:LEARN Geonode aims to provide a customizable mapping of the GEF International Waters
+	    (IW) portfolio and provide a visualization of studies, reports and intervention results on the various
+	    transboundary water basins pulled together with the help of the GEF IW projects, partner organizations
+	    and authoritative sources and other contributors.
+	    </p>
+	    <p>
+	    The IW:LEARN Geonode aims to provide a central service for sharing and discovering geodata. The
+	    platform lets users upload, manage, and browse and visualize data, and export public data in reusable
+	    formats.
+	    </p>
+	    <p>GeoNode is an open source platform for sharing geospatial data and maps that enables GEF IW projects and partner organizations to host and share geodata and maps online through the IW:LEARN server, and generate custom maps for embedding in their own website.</p>
+	    
+	    <p>
+	    You may also view the GEF International Waters Portfolio Visualization at
+	    <a href="http://iwlearn.net/iwprojectsmap">http://iwlearn.net/iwprojectsmap </a>.
+	    </p>
+	    <p>
+	    If you have any questions about the IW:LEARN Geonode,
+	      please contact <a href="mailto:info@iwlearn.org">info@iwlearn.org</a>
+	  	 </p>
+		</replace>
 </rules>
