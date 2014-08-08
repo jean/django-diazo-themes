@@ -28,3 +28,6 @@ body {
 #paneltbar {
     margin-top: 101px !important;
 }
+#embedded_map #paneltbar {
+    margin-top: 0 !important;
+}
