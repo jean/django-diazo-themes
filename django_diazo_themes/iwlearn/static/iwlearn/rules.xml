@@ -26,6 +26,7 @@
     <replace css:content=".footer .pull-right" css:theme="#foot .pull-right" />
 		<after css:theme-children="html body" content="/html/body/script" />
 		<after css:theme-children="html body" content="/html/body/style" />
+		<drop css:theme="footer" css:if-not-content="footer" />
 		
 		<!-- replace homepage intro text -->
 		<replace css:content-children=".intro" css:if-content=".intro" >
