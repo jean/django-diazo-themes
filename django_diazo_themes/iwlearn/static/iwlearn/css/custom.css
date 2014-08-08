@@ -25,3 +25,6 @@ footer.footer form {
 body {
 	padding-top: 67px;	
 }
+#paneltbar {
+    margin-top: 101px !important;
+}
